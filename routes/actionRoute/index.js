@@ -66,6 +66,15 @@ app.delete("/:id", async (req, res) => {
       .json({ error: "There was an error while deleting the action" });
   }
 });
-app.use("/", (req, res) => res.send("Project Route Home"));
+
+app.get("/", async (req, res) => {
+  try {
+    res.status(200).json(await db.get());
+  } catch {
+    res
+      .status(500)
+      .json({ error: "There was an error while retreiving the action" });
+  }
+});
 
 module.exports = app;
